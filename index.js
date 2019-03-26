@@ -23,9 +23,16 @@ server.get('/api/zoos', (req, res) => {
 
 //Get zoo by ID
 server.get('/api/zoos/:id', (req, res) =>{
-  const zoo =
+  const zooID = req.params.id;
   db('zoos')
-
+    .where({ id: zooID })
+    .first()
+    .then(zoo => {
+      res.status(200).json(zoo);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    })
 })
 
 
